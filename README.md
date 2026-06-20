@@ -290,7 +290,3 @@ tests/             # pytest: schemas · fixtures · deterministic logic · agent
 - **The model decides:** narrative understanding, the differential, plain-language communication.
 - **Code decides:** red flags, ESI acuity, no-down-coding, the approval threshold, routing.
 - **A human decides:** every high-acuity disposition, before any action.
-
-## 13. Contribution statement
-Solo — **Othmane Zizi** (McGill MMA, student ID 261255341). I designed the system and wrote the
-code, fixtures, tests, evals, and the report, grounded in the course lecture decks.
