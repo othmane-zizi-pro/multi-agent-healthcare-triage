@@ -1,0 +1,271 @@
+{
+  "label": "cli-run-governed",
+  "banner": "DECISION-SUPPORT PROTOTYPE \u2014 NOT A MEDICAL DEVICE. Synthetic data only. High-acuity dispositions require human-clinician approval before any action.",
+  "case_id": "uri_selfcare",
+  "governance_mode": "governed",
+  "model": "gpt-5.4-mini",
+  "status": "completed",
+  "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_56a392b219224569b78c4114e8627ba9",
+  "injection_flagged": false,
+  "guardrail": null,
+  "disposition": {
+    "kind": "disposition",
+    "esi": 5,
+    "band": "SELF_CARE",
+    "action": "Provide self-care guidance with explicit safety-netting advice.",
+    "red_flags": [],
+    "requires_human_approval": false,
+    "approval_reason": null,
+    "committed": true,
+    "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+    "summary": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Early streptococcal pharyngitis (less likely without fever or systemic symptoms), Peritonsillar abscess or epiglottitis (unlikely given no breathing difficulty, drooling, or inability to swallow, but important can\u2019t-miss causes)."
+  },
+  "rounds": 9,
+  "tool_calls": [
+    {
+      "tool": "run_red_flag_screen",
+      "args": {
+        "case_id": "uri_selfcare"
+      },
+      "summary": "escalate=False flags=[]"
+    },
+    {
+      "tool": "lookup_clinical_guideline",
+      "args": {
+        "topic": "sore_throat"
+      },
+      "summary": "1 ref(s)"
+    },
+    {
+      "tool": "book_clinic_slot",
+      "args": {
+        "locked_band": "SELF_CARE"
+      },
+      "summary": "band=SELF_CARE slot=SC-1 overflow=False"
+    },
+    {
+      "tool": "commit_disposition",
+      "args": {
+        "esi": 5,
+        "band": "SELF_CARE",
+        "action": "Provide self-care guidance with explicit safety-netting advice."
+      },
+      "summary": "disposition committed"
+    }
+  ],
+  "transcript": [
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "uri_selfcare (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Sore throat with runny nose for 2 days.",
+        "structured_symptoms": [
+          "Sore throat",
+          "Runny nose",
+          "No fever",
+          "No breathing difficulty",
+          "Eating and drinking normally"
+        ],
+        "onset": "2 days ago",
+        "pertinent_negatives": [
+          "No fever",
+          "No breathing difficulty",
+          "Eating and drinking normally"
+        ],
+        "complete": false,
+        "missing_info": [
+          "Is the sore throat getting better, worse, or staying the same?",
+          "Any cough, swollen glands, headache, body aches, or exposure to someone sick?",
+          "Any trouble swallowing, drooling, or muffled voice?",
+          "Any vitals available, such as temperature or oxygen saturation?",
+          "Any exertional trigger or recent activity that worsens symptoms?"
+        ],
+        "notes": ""
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "ClarificationRequest",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:intake:ClarificationRequest",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "clarification_request",
+        "questions": [
+          "Is the sore throat getting better, worse, or staying the same?",
+          "Any cough, swollen glands, headache, body aches, or exposure to someone sick?",
+          "Any trouble swallowing, drooling, or muffled voice?",
+          "Any vitals available, such as temperature or oxygen saturation?",
+          "Any exertional trigger or recent activity that worsens symptoms?"
+        ],
+        "round": 1
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CLARIFICATION_BOUNDED",
+        "detail": "5 question(s); proceeding conservatively (cap 2 rounds)."
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [],
+        "highest_severity": "info",
+        "recommend_escalate": false,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals."
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Viral upper respiratory infection / viral pharyngitis (most likely)",
+          "Allergic rhinitis with post-nasal drip",
+          "Early streptococcal pharyngitis (less likely without fever or systemic symptoms)",
+          "Peritonsillar abscess or epiglottitis (unlikely given no breathing difficulty, drooling, or inability to swallow, but important can\u2019t-miss causes)"
+        ],
+        "suggested_esi": 5,
+        "reasoning": "This presentation is most consistent with an uncomplicated viral URI/pharyngitis: 2 days of sore throat and rhinorrhea, afebrile, no respiratory distress, and normal oral intake all point to low acuity. The available guideline lookup did not find a specific sore throat pathway and advised defaulting to cautious disposition; however, there are no red flags here that would justify a higher acuity category. ESI 5 is appropriate if the patient is stable, has no dehydration, no airway concern, and does not require immediate interventions or diagnostics.",
+        "guideline_refs": [
+          "general triage principles (synthetic)"
+        ],
+        "confidence": 0.87
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "SELF_CARE",
+        "slot_id": "SC-1",
+        "slot_time": "self-care",
+        "within_capacity": true,
+        "overflow": false,
+        "notes": "Booked SC-1 in the acuity-correct band SELF_CARE."
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 5,
+        "band": "SELF_CARE",
+        "action": "Provide self-care guidance with explicit safety-netting advice.",
+        "red_flags": [],
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "committed": true,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+        "summary": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Early streptococcal pharyngitis (less likely without fever or systemic symptoms), Peritonsillar abscess or epiglottitis (unlikely given no breathing difficulty, drooling, or inability to swallow, but important can\u2019t-miss causes)."
+      }
+    },
+    {
+      "trace_id": "trace_56a392b219224569b78c4114e8627ba9",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 9,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "COMMITTED",
+        "detail": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Early streptococcal pharyngitis (less likely without fever or systemic symptoms), Peritonsillar abscess or epiglottitis (unlikely given no breathing difficulty, drooling, or inability to swallow, but important can\u2019t-miss causes)."
+      }
+    }
+  ]
+}

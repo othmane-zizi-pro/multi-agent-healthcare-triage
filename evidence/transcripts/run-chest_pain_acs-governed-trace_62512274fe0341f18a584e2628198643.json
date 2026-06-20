@@ -1,0 +1,332 @@
+{
+  "label": "cli-run-governed",
+  "banner": "DECISION-SUPPORT PROTOTYPE \u2014 NOT A MEDICAL DEVICE. Synthetic data only. High-acuity dispositions require human-clinician approval before any action.",
+  "case_id": "chest_pain_acs",
+  "governance_mode": "governed",
+  "model": "gpt-5.4-mini",
+  "status": "completed",
+  "trace_id": "trace_62512274fe0341f18a584e2628198643",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_62512274fe0341f18a584e2628198643",
+  "injection_flagged": false,
+  "guardrail": null,
+  "disposition": {
+    "kind": "disposition",
+    "esi": 2,
+    "band": "ED_NOW",
+    "action": "Direct to Emergency Department now; activate the on-call clinician.",
+    "red_flags": [
+      {
+        "code": "ACS_CHEST_PAIN",
+        "label": "Possible acute coronary syndrome (chest pain)",
+        "severity": "critical",
+        "evidence": [
+          "chest_pain_radiating"
+        ]
+      }
+    ],
+    "requires_human_approval": true,
+    "approval_reason": "ESI 2 / red flags ['ACS_CHEST_PAIN']",
+    "committed": true,
+    "rationale": "ACS_CHEST_PAIN (chest_pain_radiating)",
+    "summary": "ESI 2 \u2192 ED_NOW. Red flags: ACS_CHEST_PAIN. Direct to Emergency Department now; activate the on-call clinician. Differential: Acute coronary syndrome / myocardial infarction (most likely; classic crushing substernal pain radiating to left arm with diaphoresis and dyspnea), Unstable angina, Aortic dissection, Pulmonary embolism."
+  },
+  "rounds": 11,
+  "tool_calls": [
+    {
+      "tool": "run_red_flag_screen",
+      "args": {
+        "case_id": "chest_pain_acs"
+      },
+      "summary": "escalate=True flags=['ACS_CHEST_PAIN']"
+    },
+    {
+      "tool": "lookup_clinical_guideline",
+      "args": {
+        "topic": "chest_pain"
+      },
+      "summary": "2 ref(s)"
+    },
+    {
+      "tool": "book_clinic_slot",
+      "args": {
+        "locked_band": "ED_NOW"
+      },
+      "summary": "band=ED_NOW slot=ED-1 overflow=False"
+    },
+    {
+      "tool": "commit_disposition",
+      "args": {
+        "esi": 2,
+        "band": "ED_NOW",
+        "action": "Direct to Emergency Department now; activate the on-call clinician."
+      },
+      "summary": "disposition committed"
+    }
+  ],
+  "transcript": [
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "chest_pain_acs (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Crushing substernal chest pain with left arm radiation, sweating, and shortness of breath.",
+        "structured_symptoms": [
+          "Crushing substernal chest pain",
+          "Radiation to left arm",
+          "Diaphoresis / sweating profusely",
+          "Shortness of breath"
+        ],
+        "onset": "Started 30 minutes ago",
+        "pertinent_negatives": [],
+        "complete": false,
+        "missing_info": [
+          "Any associated symptoms such as nausea, vomiting, palpitations, dizziness, or fainting?",
+          "Any exertional trigger or what the patient was doing when the pain started?",
+          "Any vital signs available, including blood pressure, heart rate, respiratory rate, temperature, and oxygen saturation?",
+          "Is the pain constant or intermittent, and what is the severity (0-10)?",
+          "Any relevant cardiac history, risk factors, or prior similar episodes?"
+        ],
+        "notes": "Narrative contains potentially urgent chest pain features; no acuity or disposition assigned per instructions."
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "ClarificationRequest",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:intake:ClarificationRequest",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "clarification_request",
+        "questions": [
+          "Any associated symptoms such as nausea, vomiting, palpitations, dizziness, or fainting?",
+          "Any exertional trigger or what the patient was doing when the pain started?",
+          "Any vital signs available, including blood pressure, heart rate, respiratory rate, temperature, and oxygen saturation?",
+          "Is the pain constant or intermittent, and what is the severity (0-10)?",
+          "Any relevant cardiac history, risk factors, or prior similar episodes?"
+        ],
+        "round": 1
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CLARIFICATION_BOUNDED",
+        "detail": "5 question(s); proceeding conservatively (cap 2 rounds)."
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [
+          {
+            "code": "ACS_CHEST_PAIN",
+            "label": "Possible acute coronary syndrome (chest pain)",
+            "severity": "critical",
+            "evidence": [
+              "chest_pain_radiating"
+            ]
+          }
+        ],
+        "highest_severity": "critical",
+        "recommend_escalate": true,
+        "rationale": "ACS_CHEST_PAIN (chest_pain_radiating)"
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Acute coronary syndrome / myocardial infarction (most likely; classic crushing substernal pain radiating to left arm with diaphoresis and dyspnea)",
+          "Unstable angina",
+          "Aortic dissection",
+          "Pulmonary embolism",
+          "GERD/esophageal spasm or musculoskeletal pain (less likely, but only after life-threatening causes excluded)"
+        ],
+        "suggested_esi": 2,
+        "reasoning": "This presentation is highly concerning for ACS/MI: typical ischemic chest pain, radiation to the left arm, profuse sweating, and shortness of breath. Per chest pain guidance, undifferentiated chest pain should be treated as possible ACS until excluded, with ECG within 10 minutes and avoidance of reassurance based on history alone. He needs immediate rooming, rapid ECG, and evaluation for time-sensitive, potentially unstable causes. I would not assign ESI 1 unless he is in extremis (e.g., shock, severe respiratory failure, altered mental status, or cardiac arrest); with the information given, ESI 2 is the cautious recommendation.",
+        "guideline_refs": [
+          "AHA/ACC ACS guideline (synthetic)",
+          "ESI handbook v4 (synthetic)"
+        ],
+        "confidence": 0.98
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "ED_NOW",
+        "slot_id": "ED-1",
+        "slot_time": "now",
+        "within_capacity": true,
+        "overflow": false,
+        "notes": "Booked ED-1 in the acuity-correct band ED_NOW."
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 2,
+        "band": "ED_NOW",
+        "action": "Direct to Emergency Department now; activate the on-call clinician.",
+        "red_flags": [
+          {
+            "code": "ACS_CHEST_PAIN",
+            "label": "Possible acute coronary syndrome (chest pain)",
+            "severity": "critical",
+            "evidence": [
+              "chest_pain_radiating"
+            ]
+          }
+        ],
+        "requires_human_approval": true,
+        "approval_reason": "ESI 2 / red flags ['ACS_CHEST_PAIN']",
+        "committed": true,
+        "rationale": "ACS_CHEST_PAIN (chest_pain_radiating)",
+        "summary": "ESI 2 \u2192 ED_NOW. Red flags: ACS_CHEST_PAIN. Direct to Emergency Department now; activate the on-call clinician. Differential: Acute coronary syndrome / myocardial infarction (most likely; classic crushing substernal pain radiating to left arm with diaphoresis and dyspnea), Unstable angina, Aortic dissection, Pulmonary embolism."
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 9,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "AWAITING_APPROVAL",
+        "detail": "ESI 2 / red flags ['ACS_CHEST_PAIN']"
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "clinician",
+      "to_agent": "supervisor",
+      "msg_type": "ApprovalDecision",
+      "seq": 10,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "chest_pain_acs:clinician:ApprovalDecision",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "approval_decision",
+        "approved": true,
+        "decided_by": "on_call_clinician",
+        "note": ""
+      }
+    },
+    {
+      "trace_id": "trace_62512274fe0341f18a584e2628198643",
+      "case_id": "chest_pain_acs",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 11,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "APPROVAL_DECISION",
+        "detail": "approved"
+      }
+    }
+  ]
+}

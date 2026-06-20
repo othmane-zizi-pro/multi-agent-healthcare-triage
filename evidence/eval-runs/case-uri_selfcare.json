@@ -1,0 +1,223 @@
+{
+  "id": "uri_selfcare",
+  "edge": false,
+  "passed": true,
+  "failures": [],
+  "gold": {
+    "esi": 5,
+    "band": "SELF_CARE",
+    "red_flag": false,
+    "requires_approval": false,
+    "notes": "Self-care with safety-netting.",
+    "expect_guardrail": null
+  },
+  "observed": {
+    "status_first": "completed",
+    "status_final": "completed",
+    "esi": 5,
+    "band": "SELF_CARE",
+    "red_flag": false,
+    "requires_approval": false,
+    "committed": true,
+    "injection_flagged": false,
+    "overflow": false,
+    "intake_complete": true,
+    "missing_info": [],
+    "specialist_esi": 4,
+    "rounds": 8,
+    "clarification_rounds": 0,
+    "audit": [
+      "CASE_OPENED",
+      "SPECIALIST_DISAGREEMENT",
+      "COMMITTED"
+    ]
+  },
+  "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_e04813b4b2cf4116a48d1f255562c4cc",
+  "transcript": [
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "uri_selfcare (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Sore throat with runny nose for 2 days",
+        "structured_symptoms": [
+          "sore throat",
+          "runny nose",
+          "no fever",
+          "no breathing difficulty",
+          "eating normally",
+          "drinking normally"
+        ],
+        "onset": "2 days ago",
+        "pertinent_negatives": [
+          "no fever",
+          "no breathing difficulty",
+          "eating and drinking normally"
+        ],
+        "complete": true,
+        "missing_info": [],
+        "notes": ""
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [],
+        "highest_severity": "info",
+        "recommend_escalate": false,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals."
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Viral upper respiratory infection / viral pharyngitis (most likely)",
+          "Allergic rhinitis with post-nasal drip",
+          "Group A streptococcal pharyngitis (less likely without fever or exudate)",
+          "Early COVID-19 or other respiratory viral infection",
+          "Peritonsillar abscess/epiglottitis is unlikely given no breathing difficulty, normal intake, and mild course, but would be a can't-miss if symptoms worsen"
+        ],
+        "suggested_esi": 4,
+        "reasoning": "Two days of sore throat and runny nose without fever, dyspnea, or inability to tolerate PO is most consistent with a self-limited viral URI. Normal eating/drinking and absence of respiratory distress argue against emergent airway or dehydration concerns. Based on the available guideline lookup, there was no specific sore-throat guideline, so I defaulted to conservative triage principles. This presentation generally fits a non-urgent, in-person evaluation if needed, rather than emergent care. If red flags develop (trouble breathing, drooling, muffled voice, dehydration, unilateral swelling, or high fever), acuity should increase.",
+        "guideline_refs": [
+          "general triage principles (synthetic)"
+        ],
+        "confidence": 0.9
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "SPECIALIST_DISAGREEMENT",
+        "detail": "specialist ESI 4 vs locked ESI 5; deterministic acuity governs (ties break toward escalate)."
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "SELF_CARE",
+        "slot_id": "SC-1",
+        "slot_time": "self-care",
+        "within_capacity": true,
+        "overflow": false,
+        "notes": "Booked SC-1 in the acuity-correct band SELF_CARE."
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "uri_selfcare:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 5,
+        "band": "SELF_CARE",
+        "action": "Provide self-care guidance with explicit safety-netting advice.",
+        "red_flags": [],
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "committed": true,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+        "summary": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Group A streptococcal pharyngitis (less likely without fever or exudate), Early COVID-19 or other respiratory viral infection."
+      }
+    },
+    {
+      "trace_id": "trace_e04813b4b2cf4116a48d1f255562c4cc",
+      "case_id": "uri_selfcare",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "COMMITTED",
+        "detail": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Group A streptococcal pharyngitis (less likely without fever or exudate), Early COVID-19 or other respiratory viral infection."
+      }
+    }
+  ]
+}

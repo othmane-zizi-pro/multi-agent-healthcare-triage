@@ -1,0 +1,53 @@
+{
+  "_comment": "Deterministic acuity map. ESI (Emergency Severity Index): 1 = resuscitation (most acute) … 5 = non-urgent. Acuity = the MOST-acute (lowest) level implied by any present finding or dangerous vital, then floored by any fired red-flag rule's min_esi. Approval is forced for ESI <= approval_required_max_esi (critical risk => explicit human authorization [Intro 96]).",
+  "finding_acuity": {
+    "altered_mental_status": 1,
+    "airway_compromise": 1,
+    "anaphylaxis": 2,
+    "chest_pain_radiating": 2,
+    "exertional_chest_pain": 3,
+    "stroke_signs": 2,
+    "facial_droop": 2,
+    "slurred_speech": 2,
+    "unilateral_weakness": 2,
+    "suicidal_ideation": 2,
+    "severe_respiratory_distress": 2,
+    "sepsis_source": 2,
+    "syncope": 3,
+    "abdominal_pain_severe": 3,
+    "abdominal_pain_moderate": 3,
+    "rebound_tenderness": 3,
+    "high_fever": 3,
+    "fever_pediatric": 3,
+    "diaphoresis": 3,
+    "chest_discomfort_unspecified": 3,
+    "vomiting": 4,
+    "laceration_minor": 4,
+    "controlled_bleeding": 4,
+    "headache_mild": 4,
+    "sore_throat": 5,
+    "uri_symptoms": 5
+  },
+  "vitals_danger": [
+    {"metric": "spo2", "op": "<", "value": 90},
+    {"metric": "sbp", "op": "<", "value": 90},
+    {"metric": "gcs", "op": "<=", "value": 13},
+    {"metric": "rr", "op": ">=", "value": 30}
+  ],
+  "vitals_danger_esi": 2,
+  "default_esi": 5,
+  "band_for_esi": {
+    "1": "ED_NOW",
+    "2": "ED_NOW",
+    "3": "URGENT",
+    "4": "PRIMARY_CARE",
+    "5": "SELF_CARE"
+  },
+  "action_for_band": {
+    "ED_NOW": "Direct to Emergency Department now; activate the on-call clinician.",
+    "URGENT": "Book an urgent same-day in-person assessment.",
+    "PRIMARY_CARE": "Book a routine primary-care appointment.",
+    "SELF_CARE": "Provide self-care guidance with explicit safety-netting advice."
+  },
+  "approval_required_max_esi": 2
+}

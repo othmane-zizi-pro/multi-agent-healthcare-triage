@@ -1,0 +1,287 @@
+{
+  "label": "cli-run-governed",
+  "banner": "DECISION-SUPPORT PROTOTYPE \u2014 NOT A MEDICAL DEVICE. Synthetic data only. High-acuity dispositions require human-clinician approval before any action.",
+  "case_id": "missing_info",
+  "governance_mode": "governed",
+  "model": "gpt-5.4-mini",
+  "status": "completed",
+  "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_ef5869860a714a48b27e29dce488b1bb",
+  "injection_flagged": false,
+  "guardrail": null,
+  "disposition": {
+    "kind": "disposition",
+    "esi": 3,
+    "band": "URGENT",
+    "action": "Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code]",
+    "red_flags": [],
+    "requires_human_approval": false,
+    "approval_reason": null,
+    "committed": true,
+    "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+    "summary": "ESI 3 \u2192 URGENT. Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code] Differential: Acute coronary syndrome/unstable angina or NSTEMI, Aortic dissection, Pulmonary embolism, Pneumothorax."
+  },
+  "rounds": 10,
+  "tool_calls": [
+    {
+      "tool": "run_red_flag_screen",
+      "args": {
+        "case_id": "missing_info"
+      },
+      "summary": "escalate=False flags=[]"
+    },
+    {
+      "tool": "lookup_clinical_guideline",
+      "args": {
+        "topic": "chest_pain"
+      },
+      "summary": "2 ref(s)"
+    },
+    {
+      "tool": "book_clinic_slot",
+      "args": {
+        "locked_band": "URGENT"
+      },
+      "summary": "band=URGENT slot=None overflow=True"
+    },
+    {
+      "tool": "commit_disposition",
+      "args": {
+        "esi": 3,
+        "band": "URGENT",
+        "action": "Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code]"
+      },
+      "summary": "disposition committed"
+    }
+  ],
+  "transcript": [
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "missing_info (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Chest discomfort",
+        "structured_symptoms": [
+          "Chest discomfort"
+        ],
+        "onset": "Unknown / not provided",
+        "pertinent_negatives": [
+          "No vitals available over the phone"
+        ],
+        "complete": false,
+        "missing_info": [
+          "When did the chest discomfort start?",
+          "Is it constant or intermittent?",
+          "Where is the discomfort located and does it radiate anywhere?",
+          "What does it feel like (pressure, burning, sharp, tightness)?",
+          "Is it worse with exertion or improved with rest?",
+          "Any associated symptoms such as shortness of breath, sweating, nausea, dizziness, palpitations, or arm/jaw/back pain?"
+        ],
+        "notes": "Narrative was vague regarding key chest pain features, so presentation is insufficiently characterized for triage completeness."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "ClarificationRequest",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:intake:ClarificationRequest",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "clarification_request",
+        "questions": [
+          "When did the chest discomfort start?",
+          "Is it constant or intermittent?",
+          "Where is the discomfort located and does it radiate anywhere?",
+          "What does it feel like (pressure, burning, sharp, tightness)?",
+          "Is it worse with exertion or improved with rest?",
+          "Any associated symptoms such as shortness of breath, sweating, nausea, dizziness, palpitations, or arm/jaw/back pain?"
+        ],
+        "round": 1
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CLARIFICATION_BOUNDED",
+        "detail": "6 question(s); proceeding conservatively (cap 2 rounds)."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [],
+        "highest_severity": "info",
+        "recommend_escalate": false,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Acute coronary syndrome/unstable angina or NSTEMI",
+          "Aortic dissection",
+          "Pulmonary embolism",
+          "Pneumothorax",
+          "Non-cardiac causes (GERD, musculoskeletal pain, anxiety)"
+        ],
+        "suggested_esi": 2,
+        "reasoning": "This is undifferentiated chest discomfort with unknown onset, radiation, exertional component, and no vitals available. Per chest-pain guidance, vague or potentially ischemic symptoms should be treated as possible ACS until excluded, and history alone is not reassuring. Because this is a phone triage scenario with incomplete information and no objective stability data, the safer disposition is high acuity: urgent ED evaluation, ECG within 10 minutes on arrival, and monitoring for time-sensitive cardiopulmonary emergencies. I would favor ESI 2 rather than lower acuity due to the need to rapidly identify a potentially life-threatening cause, though this is advisory and limited by the lack of vitals.",
+        "guideline_refs": [
+          "AHA/ACC ACS guideline (synthetic)",
+          "ESI handbook v4 (synthetic)"
+        ],
+        "confidence": 0.86
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "SPECIALIST_DISAGREEMENT",
+        "detail": "specialist ESI 2 vs locked ESI 3; deterministic acuity governs (ties break toward escalate)."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "URGENT",
+        "slot_id": null,
+        "slot_time": null,
+        "within_capacity": false,
+        "overflow": true,
+        "notes": "Acuity-correct band URGENT is full \u2014 OVERFLOW/divert (no down-coding)."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 9,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "missing_info:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 3,
+        "band": "URGENT",
+        "action": "Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code]",
+        "red_flags": [],
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "committed": true,
+        "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+        "summary": "ESI 3 \u2192 URGENT. Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code] Differential: Acute coronary syndrome/unstable angina or NSTEMI, Aortic dissection, Pulmonary embolism, Pneumothorax."
+      }
+    },
+    {
+      "trace_id": "trace_ef5869860a714a48b27e29dce488b1bb",
+      "case_id": "missing_info",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 10,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "COMMITTED",
+        "detail": "ESI 3 \u2192 URGENT. Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code] Differential: Acute coronary syndrome/unstable angina or NSTEMI, Aortic dissection, Pulmonary embolism, Pneumothorax."
+      }
+    }
+  ]
+}

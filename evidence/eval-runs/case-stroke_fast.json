@@ -1,0 +1,298 @@
+{
+  "id": "stroke_fast",
+  "edge": false,
+  "passed": true,
+  "failures": [],
+  "gold": {
+    "esi": 2,
+    "band": "ED_NOW",
+    "red_flag": true,
+    "requires_approval": true,
+    "notes": "FAST positive \u2014 time-critical.",
+    "expect_guardrail": null
+  },
+  "observed": {
+    "status_first": "awaiting_approval",
+    "status_final": "completed",
+    "esi": 2,
+    "band": "ED_NOW",
+    "red_flag": true,
+    "requires_approval": true,
+    "committed": true,
+    "injection_flagged": false,
+    "overflow": false,
+    "intake_complete": true,
+    "missing_info": [],
+    "specialist_esi": 1,
+    "rounds": 11,
+    "clarification_rounds": 0,
+    "audit": [
+      "CASE_OPENED",
+      "RISK_VETO",
+      "SPECIALIST_DISAGREEMENT",
+      "AWAITING_APPROVAL",
+      "APPROVAL_DECISION"
+    ]
+  },
+  "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_a1572da540c24bfab8f030916f5a6c6f",
+  "transcript": [
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "stroke_fast (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Sudden onset right-sided facial droop with slurred speech and left arm weakness.",
+        "structured_symptoms": [
+          "right-sided facial droop",
+          "slurred speech",
+          "left arm weakness",
+          "sudden onset",
+          "symptom onset 40 minutes ago"
+        ],
+        "onset": "Sudden onset 40 minutes ago",
+        "pertinent_negatives": [],
+        "complete": true,
+        "missing_info": [],
+        "notes": "Acute focal neurologic deficits with very recent onset; presentation is sufficiently clear for triage."
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [
+          {
+            "code": "STROKE_FAST",
+            "label": "Possible acute stroke (FAST positive)",
+            "severity": "critical",
+            "evidence": [
+              "stroke_signs",
+              "facial_droop",
+              "slurred_speech",
+              "unilateral_weakness"
+            ]
+          }
+        ],
+        "highest_severity": "critical",
+        "recommend_escalate": true,
+        "rationale": "STROKE_FAST (stroke_signs, facial_droop, slurred_speech, unilateral_weakness)"
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "RISK_VETO",
+        "detail": "independent screen floored acuity to ESI 2 / ED_NOW."
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Acute ischemic stroke, especially large-vessel occlusion or embolic stroke",
+          "Intracranial hemorrhage",
+          "Transient ischemic attack (less likely given persistent focal deficits)",
+          "Stroke mimic such as hypoglycemia or seizure with postictal deficit"
+        ],
+        "suggested_esi": 1,
+        "reasoning": "This is a time-critical, FAST-positive neurologic presentation with sudden onset focal deficits (facial droop, slurred speech, unilateral arm weakness) within 40 minutes of last known well. Per stroke guidance, this should activate an immediate stroke pathway because thrombolysis/thrombectomy eligibility is time-dependent. ESI 1 is appropriate if there is concern for airway compromise, hemodynamic instability, or rapidly worsening neurologic status; given the abrupt focal deficits and need for immediate intervention, I would lean to the most cautious acuity. If fully stable, some systems may operationalize this as ESI 2, but the safer advisory call is ESI 1.",
+        "guideline_refs": [
+          "AHA stroke guideline (synthetic)"
+        ],
+        "confidence": 0.97
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "SPECIALIST_DISAGREEMENT",
+        "detail": "specialist ESI 1 vs locked ESI 2; deterministic acuity governs (ties break toward escalate)."
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "ED_NOW",
+        "slot_id": "ED-1",
+        "slot_time": "now",
+        "within_capacity": true,
+        "overflow": false,
+        "notes": "Booked ED-1 in the acuity-correct band ED_NOW."
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 2,
+        "band": "ED_NOW",
+        "action": "Direct to Emergency Department now; activate the on-call clinician.",
+        "red_flags": [
+          {
+            "code": "STROKE_FAST",
+            "label": "Possible acute stroke (FAST positive)",
+            "severity": "critical",
+            "evidence": [
+              "stroke_signs",
+              "facial_droop",
+              "slurred_speech",
+              "unilateral_weakness"
+            ]
+          }
+        ],
+        "requires_human_approval": true,
+        "approval_reason": "ESI 2 / red flags ['STROKE_FAST']",
+        "committed": true,
+        "rationale": "STROKE_FAST (stroke_signs, facial_droop, slurred_speech, unilateral_weakness)",
+        "summary": "ESI 2 \u2192 ED_NOW. Red flags: STROKE_FAST. Direct to Emergency Department now; activate the on-call clinician. Differential: Acute ischemic stroke, especially large-vessel occlusion or embolic stroke, Intracranial hemorrhage, Transient ischemic attack (less likely given persistent focal deficits), Stroke mimic such as hypoglycemia or seizure with postictal deficit."
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 9,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "AWAITING_APPROVAL",
+        "detail": "ESI 2 / red flags ['STROKE_FAST']"
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "clinician",
+      "to_agent": "supervisor",
+      "msg_type": "ApprovalDecision",
+      "seq": 10,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "stroke_fast:clinician:ApprovalDecision",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "approval_decision",
+        "approved": true,
+        "decided_by": "on_call_clinician",
+        "note": ""
+      }
+    },
+    {
+      "trace_id": "trace_a1572da540c24bfab8f030916f5a6c6f",
+      "case_id": "stroke_fast",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 11,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "APPROVAL_DECISION",
+        "detail": "approved"
+      }
+    }
+  ]
+}

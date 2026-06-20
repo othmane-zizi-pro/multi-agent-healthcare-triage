@@ -1,0 +1,82 @@
+{
+  "_comment": "Deterministic safety screen — CODE, not prose [DRL 153], [SDK 64]. A rule fires if ANY listed finding is present OR ANY vitals condition is true. Firing forces a disposition-band floor (ED_NOW) and an ESI ceiling (min_esi = most-acute level it permits). The model never grades safety; it only narrates what this screen already decided.",
+  "rules": [
+    {
+      "code": "ACS_CHEST_PAIN",
+      "label": "Possible acute coronary syndrome (chest pain)",
+      "severity": "critical",
+      "findings_any": ["chest_pain_radiating", "exertional_chest_pain"],
+      "vitals_any": [],
+      "forces_band": "ED_NOW",
+      "min_esi": 2
+    },
+    {
+      "code": "STROKE_FAST",
+      "label": "Possible acute stroke (FAST positive)",
+      "severity": "critical",
+      "findings_any": ["stroke_signs", "facial_droop", "slurred_speech", "unilateral_weakness"],
+      "vitals_any": [],
+      "forces_band": "ED_NOW",
+      "min_esi": 2
+    },
+    {
+      "code": "ANAPHYLAXIS",
+      "label": "Possible anaphylaxis",
+      "severity": "critical",
+      "findings_any": ["anaphylaxis"],
+      "vitals_any": [],
+      "forces_band": "ED_NOW",
+      "min_esi": 1
+    },
+    {
+      "code": "AIRWAY_COMPROMISE",
+      "label": "Airway / breathing compromise",
+      "severity": "critical",
+      "findings_any": ["airway_compromise", "severe_respiratory_distress"],
+      "vitals_any": [{"metric": "spo2", "op": "<", "value": 90}],
+      "forces_band": "ED_NOW",
+      "min_esi": 1
+    },
+    {
+      "code": "SEPSIS_SOURCE",
+      "label": "Possible sepsis (infection source + instability)",
+      "severity": "high",
+      "findings_any": ["sepsis_source"],
+      "vitals_any": [],
+      "forces_band": "ED_NOW",
+      "min_esi": 2
+    },
+    {
+      "code": "CRITICAL_VITALS",
+      "label": "Critically abnormal vital signs",
+      "severity": "high",
+      "findings_any": [],
+      "vitals_any": [
+        {"metric": "spo2", "op": "<", "value": 90},
+        {"metric": "sbp", "op": "<", "value": 90},
+        {"metric": "gcs", "op": "<=", "value": 13},
+        {"metric": "rr", "op": ">=", "value": 30}
+      ],
+      "forces_band": "ED_NOW",
+      "min_esi": 2
+    },
+    {
+      "code": "SUICIDAL_IDEATION",
+      "label": "Active suicidal ideation (psychiatric emergency)",
+      "severity": "critical",
+      "findings_any": ["suicidal_ideation"],
+      "vitals_any": [],
+      "forces_band": "ED_NOW",
+      "min_esi": 2
+    },
+    {
+      "code": "ALTERED_MENTAL_STATUS",
+      "label": "Altered mental status",
+      "severity": "critical",
+      "findings_any": ["altered_mental_status"],
+      "vitals_any": [{"metric": "gcs", "op": "<=", "value": 13}],
+      "forces_band": "ED_NOW",
+      "min_esi": 1
+    }
+  ]
+}

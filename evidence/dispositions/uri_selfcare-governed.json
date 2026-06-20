@@ -1,0 +1,16 @@
+{
+  "banner": "DECISION-SUPPORT PROTOTYPE \u2014 NOT A MEDICAL DEVICE. Synthetic data only. High-acuity dispositions require human-clinician approval before any action.",
+  "case_id": "uri_selfcare",
+  "disposition": {
+    "kind": "disposition",
+    "esi": 5,
+    "band": "SELF_CARE",
+    "action": "Provide self-care guidance with explicit safety-netting advice.",
+    "red_flags": [],
+    "requires_human_approval": false,
+    "approval_reason": null,
+    "committed": true,
+    "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+    "summary": "ESI 5 \u2192 SELF_CARE. Provide self-care guidance with explicit safety-netting advice. Differential: Viral upper respiratory infection / viral pharyngitis (most likely), Allergic rhinitis with post-nasal drip, Early streptococcal pharyngitis (less likely without fever or systemic symptoms), Peritonsillar abscess or epiglottitis (unlikely given no breathing difficulty, drooling, or inability to swallow, but important can\u2019t-miss causes)."
+  }
+}

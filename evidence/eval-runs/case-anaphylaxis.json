@@ -1,0 +1,306 @@
+{
+  "id": "anaphylaxis",
+  "edge": false,
+  "passed": true,
+  "failures": [],
+  "gold": {
+    "esi": 1,
+    "band": "ED_NOW",
+    "red_flag": true,
+    "requires_approval": true,
+    "notes": "Airway involvement => ESI 1.",
+    "expect_guardrail": null
+  },
+  "observed": {
+    "status_first": "awaiting_approval",
+    "status_final": "completed",
+    "esi": 1,
+    "band": "ED_NOW",
+    "red_flag": true,
+    "requires_approval": true,
+    "committed": true,
+    "injection_flagged": false,
+    "overflow": false,
+    "intake_complete": true,
+    "missing_info": [],
+    "specialist_esi": 1,
+    "rounds": 10,
+    "clarification_rounds": 0,
+    "audit": [
+      "CASE_OPENED",
+      "RISK_VETO",
+      "AWAITING_APPROVAL",
+      "APPROVAL_DECISION"
+    ]
+  },
+  "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+  "trace_url": "https://platform.openai.com/traces/trace?trace_id=trace_fcae7a48e2bb4b2290220dc15110ea4a",
+  "transcript": [
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 1,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "CASE_OPENED",
+        "detail": "anaphylaxis (governed mode)"
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "intake",
+      "to_agent": "supervisor",
+      "msg_type": "CaseIntake",
+      "seq": 2,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:intake:CaseIntake",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "intake_summary",
+        "chief_complaint": "Bee sting with swelling of lips and tongue, hives, and wheezing.",
+        "structured_symptoms": [
+          "Bee sting 15 minutes ago",
+          "Swelling of lips",
+          "Swelling of tongue",
+          "Hives",
+          "Audible wheeze"
+        ],
+        "onset": "15 minutes ago",
+        "pertinent_negatives": [],
+        "complete": true,
+        "missing_info": [],
+        "notes": "Presentation is clear and time-linked to a bee sting. No additional clarifying details are needed to understand the complaint."
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "risk",
+      "to_agent": "supervisor",
+      "msg_type": "RiskAssessment",
+      "seq": 3,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:risk:RiskAssessment",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "risk_assessment",
+        "red_flags": [
+          {
+            "code": "ANAPHYLAXIS",
+            "label": "Possible anaphylaxis",
+            "severity": "critical",
+            "evidence": [
+              "anaphylaxis"
+            ]
+          },
+          {
+            "code": "AIRWAY_COMPROMISE",
+            "label": "Airway / breathing compromise",
+            "severity": "critical",
+            "evidence": [
+              "airway_compromise",
+              "spo2 < 90"
+            ]
+          },
+          {
+            "code": "CRITICAL_VITALS",
+            "label": "Critically abnormal vital signs",
+            "severity": "high",
+            "evidence": [
+              "spo2 < 90"
+            ]
+          }
+        ],
+        "highest_severity": "critical",
+        "recommend_escalate": true,
+        "rationale": "ANAPHYLAXIS (anaphylaxis); AIRWAY_COMPROMISE (airway_compromise, spo2 < 90); CRITICAL_VITALS (spo2 < 90)"
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 4,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "RISK_VETO",
+        "detail": "independent screen floored acuity to ESI 1 / ED_NOW."
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "specialist",
+      "to_agent": "supervisor",
+      "msg_type": "SpecialistOpinion",
+      "seq": 5,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:specialist:SpecialistOpinion",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "specialist_opinion",
+        "differential": [
+          "Anaphylaxis due to Hymenoptera (bee) sting with airway involvement",
+          "Severe allergic reaction/angioedema",
+          "Less likely isolated urticaria without systemic involvement"
+        ],
+        "suggested_esi": 1,
+        "reasoning": "This presentation is most consistent with anaphylaxis: rapid onset after bee sting plus lip/tongue swelling, hives, and audible wheeze indicate airway and breathing involvement. Per the anaphylaxis guideline, airway/breathing compromise is ESI-1, with immediate IM epinephrine as first-line treatment and close monitoring for biphasic reaction. I would be cautious and treat this as the highest acuity category because of the risk of imminent airway obstruction or respiratory failure.",
+        "guideline_refs": [
+          "Anaphylaxis guideline (synthetic)"
+        ],
+        "confidence": 0.99
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "scheduler",
+      "to_agent": "supervisor",
+      "msg_type": "SchedulingProposal",
+      "seq": 6,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:scheduler:SchedulingProposal",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "scheduling_proposal",
+        "band": "ED_NOW",
+        "slot_id": "ED-1",
+        "slot_time": "now",
+        "within_capacity": true,
+        "overflow": false,
+        "notes": "Booked ED-1 in the acuity-correct band ED_NOW."
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "supervisor",
+      "to_agent": "clinician",
+      "msg_type": "DispositionDraft",
+      "seq": 7,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:supervisor:DispositionDraft",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "disposition",
+        "esi": 1,
+        "band": "ED_NOW",
+        "action": "Direct to Emergency Department now; activate the on-call clinician.",
+        "red_flags": [
+          {
+            "code": "ANAPHYLAXIS",
+            "label": "Possible anaphylaxis",
+            "severity": "critical",
+            "evidence": [
+              "anaphylaxis"
+            ]
+          },
+          {
+            "code": "AIRWAY_COMPROMISE",
+            "label": "Airway / breathing compromise",
+            "severity": "critical",
+            "evidence": [
+              "airway_compromise",
+              "spo2 < 90"
+            ]
+          },
+          {
+            "code": "CRITICAL_VITALS",
+            "label": "Critically abnormal vital signs",
+            "severity": "high",
+            "evidence": [
+              "spo2 < 90"
+            ]
+          }
+        ],
+        "requires_human_approval": true,
+        "approval_reason": "ESI 1 / red flags ['ANAPHYLAXIS', 'AIRWAY_COMPROMISE', 'CRITICAL_VITALS']",
+        "committed": true,
+        "rationale": "ANAPHYLAXIS (anaphylaxis); AIRWAY_COMPROMISE (airway_compromise, spo2 < 90); CRITICAL_VITALS (spo2 < 90)",
+        "summary": "ESI 1 \u2192 ED_NOW. Red flags: ANAPHYLAXIS, AIRWAY_COMPROMISE, CRITICAL_VITALS. Direct to Emergency Department now; activate the on-call clinician. Differential: Anaphylaxis due to Hymenoptera (bee) sting with airway involvement, Severe allergic reaction/angioedema, Less likely isolated urticaria without systemic involvement."
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 8,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "AWAITING_APPROVAL",
+        "detail": "ESI 1 / red flags ['ANAPHYLAXIS', 'AIRWAY_COMPROMISE', 'CRITICAL_VITALS']"
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "clinician",
+      "to_agent": "supervisor",
+      "msg_type": "ApprovalDecision",
+      "seq": 9,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "anaphylaxis:clinician:ApprovalDecision",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "approval_decision",
+        "approved": true,
+        "decided_by": "on_call_clinician",
+        "note": ""
+      }
+    },
+    {
+      "trace_id": "trace_fcae7a48e2bb4b2290220dc15110ea4a",
+      "case_id": "anaphylaxis",
+      "from_agent": "supervisor",
+      "to_agent": "supervisor",
+      "msg_type": "AuditEvent",
+      "seq": 10,
+      "created_at": "",
+      "deadline": null,
+      "idempotency_key": "",
+      "confidence": null,
+      "evidence": [],
+      "payload": {
+        "kind": "audit_event",
+        "event": "APPROVAL_DECISION",
+        "detail": "approved"
+      }
+    }
+  ]
+}

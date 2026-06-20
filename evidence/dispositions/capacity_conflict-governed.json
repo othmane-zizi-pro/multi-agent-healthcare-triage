@@ -1,0 +1,16 @@
+{
+  "banner": "DECISION-SUPPORT PROTOTYPE \u2014 NOT A MEDICAL DEVICE. Synthetic data only. High-acuity dispositions require human-clinician approval before any action.",
+  "case_id": "capacity_conflict",
+  "disposition": {
+    "kind": "disposition",
+    "esi": 3,
+    "band": "URGENT",
+    "action": "Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code]",
+    "red_flags": [],
+    "requires_human_approval": false,
+    "approval_reason": null,
+    "committed": true,
+    "rationale": "No red-flag rule fired on the authoritative findings/vitals.",
+    "summary": "ESI 3 \u2192 URGENT. Book an urgent same-day in-person assessment. [capacity overflow \u2014 divert / activate on-call; do NOT down-code] Differential: Nephrolithiasis / renal colic (most likely): classic severe colicky flank pain radiating to the groin with restlessness and stable vitals, no fever., Obstructing ureteral stone with hydronephrosis: important consideration if pain is severe or persistent, even without fever., Pyelonephritis or infected obstructing stone: less likely without fever or instability, but cannot miss if urinary symptoms, leukocytosis, or later fever develop., AAA / vascular catastrophe: lower likelihood with this classic colicky pattern, but in a 60-year-old with flank pain it remains a can't-miss alternative if pain is atypical or exam changes.."
+  }
+}

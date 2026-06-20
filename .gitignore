@@ -1,0 +1,31 @@
+# Secrets — never commit. Use .env.example as the committable template.
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+*.swp
+
+# LaTeX build intermediates (keep report.pdf)
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.synctex.gz
+
+# Local submission bundle (built on demand)
+submission/*.zip

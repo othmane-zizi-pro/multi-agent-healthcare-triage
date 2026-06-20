@@ -1,0 +1,20 @@
+{
+  "_comment": "The scheduler's constrained world (the inventory-RL-flavored sub-problem). URGENT capacity is intentionally exhausted so the `capacity_conflict` case must trigger an overflow/divert — the scheduler may NEVER down-code to a lower band to make a patient 'fit' (enforced in code, not optimized) [DRL 153], [MAS 76-82].",
+  "on_call_clinician": "Dr. A. Okafor (on-call clinician)",
+  "capacity": {
+    "ED_NOW": 2,
+    "URGENT": 0,
+    "PRIMARY_CARE": 3,
+    "SELF_CARE": 99
+  },
+  "slots": [
+    {"slot_id": "ED-1", "band": "ED_NOW", "time": "now", "available": true},
+    {"slot_id": "ED-2", "band": "ED_NOW", "time": "now", "available": true},
+    {"slot_id": "UR-1", "band": "URGENT", "time": "today 14:00", "available": false},
+    {"slot_id": "UR-2", "band": "URGENT", "time": "today 16:30", "available": false},
+    {"slot_id": "PC-1", "band": "PRIMARY_CARE", "time": "tomorrow 09:00", "available": true},
+    {"slot_id": "PC-2", "band": "PRIMARY_CARE", "time": "tomorrow 11:00", "available": true},
+    {"slot_id": "PC-3", "band": "PRIMARY_CARE", "time": "Thu 10:00", "available": true},
+    {"slot_id": "SC-1", "band": "SELF_CARE", "time": "self-care", "available": true}
+  ]
+}
