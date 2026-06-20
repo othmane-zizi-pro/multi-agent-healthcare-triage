@@ -2,7 +2,7 @@
 
 The deck's production checklist lists a fallback path [SDK 105]; a small org TPM cap makes 429s
 routine, so we retry with bounded backoff rather than crash. Evidence persistence implements
-"if you cannot trace it, you cannot govern it" [Intro 94], [SDK 83-86] → [[tracing-and-evidence]].
+"if you cannot trace it, you cannot govern it" [Intro 94], [SDK 83-86] → tracing and evidence.
 """
 
 from __future__ import annotations

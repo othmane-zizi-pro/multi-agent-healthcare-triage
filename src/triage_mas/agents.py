@@ -11,7 +11,7 @@ red flag (defense in depth) [SDK 61], [DRL 147].
   specialist  — clinical reasoning + (mocked MCP) guideline lookup. Advisory, not authoritative.
   scheduler   — book within the acuity-LOCKED band (mocked A2A). Cannot down-code.
 
-Each returns a typed payload via `output_type` ([[structured-output]]). The authoritative
+Each returns a typed payload via `output_type` (structured output). The authoritative
 safety facts are re-derived in CODE by the supervisor — the agents narrate, code decides.
 """
 

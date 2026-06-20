@@ -50,14 +50,14 @@ differs. The goal is not more agents — it is clearer responsibility [MAS 9].
 flowchart TB
     P["🧑 Patient narrative<br/>(UNTRUSTED) + structured vitals/findings"]
 
-    subgraph GR["Guardrails (untrusted content is data, never authority [Intro 91])"]
+    subgraph GR["Guardrails — untrusted content is data, never authority"]
       INJ["Deterministic injection screen<br/>detect + neutralize (never denies triage)"]
       SCOPE["SDK scope guardrail<br/>trips only on abuse / PHI-exfiltration"]
     end
 
     P --> INJ --> SCOPE
 
-    subgraph SUP["SUPERVISOR — orchestrator (deterministic routing) [MAS 64-73]"]
+    subgraph SUP["SUPERVISOR — orchestrator, deterministic routing"]
       direction TB
       BB[("📋 Blackboard CaseFile<br/>typed messages · write discipline · audit")]
     end

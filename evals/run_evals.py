@@ -2,7 +2,7 @@
 
 Runs each golden scenario through a fresh `TriageSupervisor` (governed mode), auto-approving any
 high-acuity pause to reach a terminal state, and asserts on BEHAVIOUR — acuity, band, red flags,
-escalation/approval, guardrail blocks — against each case's gold label, not on prose ([[evals]]:
+escalation/approval, guardrail blocks — against each case's gold label, not on prose (evals:
 "grade the path, not the wording"). It then aggregates metrics at the four levels the brief
 requires (agent · interaction · system · human) and writes:
 

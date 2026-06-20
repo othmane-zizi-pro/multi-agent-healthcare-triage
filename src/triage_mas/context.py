@@ -3,7 +3,7 @@
 Holds the read-only world, the specific case under triage, the governance config, the locked
 acuity band (set by the supervisor in CODE before the scheduler runs, so the model cannot
 down-code), and the tool-call audit log. Tools read this; the model does not.
-See [[local-vs-model-context]].
+See local vs model context.
 """
 
 from __future__ import annotations

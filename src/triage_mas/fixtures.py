@@ -1,6 +1,6 @@
 """Read-only loaders for the synthetic fixture world.
 
-The JSON files in `data/` are the **immutable source of truth** (the [[runner-and-state]]
+The JSON files in `data/` are the **immutable source of truth** (the runner and state
 "recomputed" axis): read fresh, never mutated. `World` bundles the four fixtures so the
 deterministic tools have a single read-only handle. All data is synthetic — no real PHI.
 """

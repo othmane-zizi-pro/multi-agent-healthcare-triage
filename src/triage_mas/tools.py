@@ -11,7 +11,7 @@ Three tools, each a distinct trust boundary (plan §3.1, §3.6):
                               down-code to fit capacity [MAS 92-99], [MAS 76-82].
 
 The first parameter `wrapper: RunContextWrapper[TriageContext]` is injected by the SDK and is
-never shown to the model (it carries [[local-vs-model-context|local context]]).
+never shown to the model (it carries local context).
 """
 
 from __future__ import annotations

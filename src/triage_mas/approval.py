@@ -5,7 +5,7 @@ on-call clinician. The commit runs through a single approval-gated tool whose `n
 is a *callable*: it pauses the run (interruption) only when the deterministic pipeline says the
 disposition requires human authorization (ESI ≤ threshold or a red flag) [Intro 96]. Low-acuity
 dispositions commit immediately. Resume is `RunState.approve()` / `.reject()` — the same run,
-not a new turn ([[human-approval]], [[runner-and-state]]).
+not a new turn (human approval, runner and state).
 
 This is the "what should a HUMAN decide" third of the three-way split [SDK 137].
 """
